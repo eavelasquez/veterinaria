@@ -1,0 +1,40 @@
+﻿@model VeterinariaApp.Models.tbl_profesional
+
+@{
+    ViewBag.Title = "Profesionales";
+}
+
+<div class="row">
+    <div class="col-7">
+        <h2 class="border-left border-bottom border-info rounded-left">Profesionales <span class="text-muted" style="font-size: 16px">Nuestros mejores cuidadores.</span></h2>
+    </div>
+    <div class="col-12">
+        <div class="alert alert-info" role="alert">
+            Información sobre este profesional. <i class="fas fa-exclamation-triangle ml-2"></i>
+        </div>
+    </div>
+</div>
+<hr />
+
+<div class="card shadow mb-5">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12 col-md-8">
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><span class="font-weight-bold mr-lg-2">Nombre.</span>@Html.DisplayFor(model => model.nombre_pfl)</li>
+                    <li class="list-group-item"><span class="font-weight-bold mr-lg-2">Descripción.</span>@Html.DisplayFor(model => model.apellido_pfl)</li>
+                    <li class="list-group-item"><span class="font-weight-bold mr-lg-2">Teléfono.</span>@Html.DisplayFor(model => model.telefono_pfl)</li>
+                    <li class="list-group-item"><span class="font-weight-bold mr-lg-2">Celular.</span>@Html.DisplayFor(model => model.celular_pfl)</li>
+                </ul>
+
+            </div>
+            <div class="form-group mt-3">
+                <div class="col-md-12">
+                    @Html.ActionLink(" Volver atrás", "Index", null, new { @class = "btn btn-outline-dark fas fa-arrow-left btn-sm" }) |
+                    @Html.ActionLink(" Actualizar", "Edit", new { id = Model.codigo_pfl }, new { @class = "btn btn-outline-info btn-sm far fa-edit" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

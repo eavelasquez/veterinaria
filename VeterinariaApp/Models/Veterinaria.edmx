@@ -1,0 +1,1198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="db_veterinariaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_cliente">
+          <Key>
+            <PropertyRef Name="id_c" />
+          </Key>
+          <Property Name="id_c" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="nombre_c" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="apellido_c" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="edad_c" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="fecha_nacimiento_c" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_especie">
+          <Key>
+            <PropertyRef Name="codigo_e" />
+          </Key>
+          <Property Name="codigo_e" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="nombre_e" Type="varchar" MaxLength="16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_factura">
+          <Key>
+            <PropertyRef Name="codigo_f" />
+          </Key>
+          <Property Name="codigo_f" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="fecha_f" Type="date" Nullable="false" />
+          <Property Name="id_m" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="codigo_pfl" Type="varchar" MaxLength="12" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'db_veterinaria.dbo.tbl_factura_producto' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="tbl_factura_producto">
+          <Key>
+            <PropertyRef Name="codigo_f" />
+            <PropertyRef Name="codigo_pd" />
+          </Key>
+          <Property Name="codigo_f" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="codigo_pd" Type="varchar" MaxLength="8" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'db_veterinaria.dbo.tbl_factura_servicio' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="tbl_factura_servicio">
+          <Key>
+            <PropertyRef Name="codigo_f" />
+            <PropertyRef Name="codigo_s" />
+          </Key>
+          <Property Name="codigo_f" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="codigo_s" Type="varchar" MaxLength="16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_mascotas">
+          <Key>
+            <PropertyRef Name="id_m" />
+          </Key>
+          <Property Name="id_m" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="nombre_m" Type="varchar" MaxLength="24" Nullable="false" />
+          <Property Name="descripcion_m" Type="varchar(max)" />
+          <Property Name="edad_m" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="sexo_m" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="fecha_nacimiento_m" Type="date" Nullable="false" />
+          <Property Name="codigo_e" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="id_c" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="codigo_r" Type="varchar" MaxLength="12" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_productos">
+          <Key>
+            <PropertyRef Name="codigo_pd" />
+          </Key>
+          <Property Name="codigo_pd" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="nombre_pd" Type="varchar" MaxLength="24" Nullable="false" />
+          <Property Name="precio_pd" Type="float" Nullable="false" />
+          <Property Name="codigo_tp" Type="varchar" MaxLength="16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_profesional">
+          <Key>
+            <PropertyRef Name="codigo_pfl" />
+          </Key>
+          <Property Name="codigo_pfl" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="nombre_pfl" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="apellido_pfl" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="telefono_pfl" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="celular_pfl" Type="varchar" MaxLength="16" />
+        </EntityType>
+        <EntityType Name="tbl_raza">
+          <Key>
+            <PropertyRef Name="codigo_r" />
+          </Key>
+          <Property Name="codigo_r" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="nombre_r" Type="varchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_servicio">
+          <Key>
+            <PropertyRef Name="codigo_s" />
+          </Key>
+          <Property Name="codigo_s" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="nombre_s" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="descripcion_s" Type="varchar(max)" />
+          <Property Name="precio_s" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_tipo_producto">
+          <Key>
+            <PropertyRef Name="codigo_tp" />
+          </Key>
+          <Property Name="codigo_tp" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="nombre_tp" Type="varchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tbl_factu__codig__00200768">
+          <End Role="tbl_factura" Type="Self.tbl_factura" Multiplicity="1" />
+          <End Role="tbl_factura_producto" Type="Self.tbl_factura_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_factura">
+              <PropertyRef Name="codigo_f" />
+            </Principal>
+            <Dependent Role="tbl_factura_producto">
+              <PropertyRef Name="codigo_f" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_factu__codig__01142BA1">
+          <End Role="tbl_productos" Type="Self.tbl_productos" Multiplicity="1" />
+          <End Role="tbl_factura_producto" Type="Self.tbl_factura_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_productos">
+              <PropertyRef Name="codigo_pd" />
+            </Principal>
+            <Dependent Role="tbl_factura_producto">
+              <PropertyRef Name="codigo_pd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_factu__codig__02FC7413">
+          <End Role="tbl_factura" Type="Self.tbl_factura" Multiplicity="1" />
+          <End Role="tbl_factura_servicio" Type="Self.tbl_factura_servicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_factura">
+              <PropertyRef Name="codigo_f" />
+            </Principal>
+            <Dependent Role="tbl_factura_servicio">
+              <PropertyRef Name="codigo_f" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_factu__codig__03F0984C">
+          <End Role="tbl_servicio" Type="Self.tbl_servicio" Multiplicity="1" />
+          <End Role="tbl_factura_servicio" Type="Self.tbl_factura_servicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_servicio">
+              <PropertyRef Name="codigo_s" />
+            </Principal>
+            <Dependent Role="tbl_factura_servicio">
+              <PropertyRef Name="codigo_s" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_factu__codig__7E37BEF6">
+          <End Role="tbl_profesional" Type="Self.tbl_profesional" Multiplicity="1" />
+          <End Role="tbl_factura" Type="Self.tbl_factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_profesional">
+              <PropertyRef Name="codigo_pfl" />
+            </Principal>
+            <Dependent Role="tbl_factura">
+              <PropertyRef Name="codigo_pfl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_factur__id_m__7D439ABD">
+          <End Role="tbl_mascotas" Type="Self.tbl_mascotas" Multiplicity="1" />
+          <End Role="tbl_factura" Type="Self.tbl_factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_mascotas">
+              <PropertyRef Name="id_m" />
+            </Principal>
+            <Dependent Role="tbl_factura">
+              <PropertyRef Name="id_m" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_masco__codig__3D5E1FD2">
+          <End Role="tbl_raza" Type="Self.tbl_raza" Multiplicity="1" />
+          <End Role="tbl_mascotas" Type="Self.tbl_mascotas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_raza">
+              <PropertyRef Name="codigo_r" />
+            </Principal>
+            <Dependent Role="tbl_mascotas">
+              <PropertyRef Name="codigo_r" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_masco__codig__3E52440B">
+          <End Role="tbl_especie" Type="Self.tbl_especie" Multiplicity="1" />
+          <End Role="tbl_mascotas" Type="Self.tbl_mascotas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_especie">
+              <PropertyRef Name="codigo_e" />
+            </Principal>
+            <Dependent Role="tbl_mascotas">
+              <PropertyRef Name="codigo_e" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_mascot__id_c__3F466844">
+          <End Role="tbl_cliente" Type="Self.tbl_cliente" Multiplicity="1" />
+          <End Role="tbl_mascotas" Type="Self.tbl_mascotas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_cliente">
+              <PropertyRef Name="id_c" />
+            </Principal>
+            <Dependent Role="tbl_mascotas">
+              <PropertyRef Name="id_c" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_produ__codig__787EE5A0">
+          <End Role="tbl_tipo_producto" Type="Self.tbl_tipo_producto" Multiplicity="1" />
+          <End Role="tbl_productos" Type="Self.tbl_productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_tipo_producto">
+              <PropertyRef Name="codigo_tp" />
+            </Principal>
+            <Dependent Role="tbl_productos">
+              <PropertyRef Name="codigo_tp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="pa_delete_cliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_id" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_delete_especie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_delete_factura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_delete_factura_producto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo_f" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_delete_factura_servicio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo_f" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_delete_mascota" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_id" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_delete_productos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_delete_profesional" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_delete_raza" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_delete_servicio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_delete_tipo_producto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_insert_cliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_id" Type="varchar" Mode="In" />
+          <Parameter Name="pa_nombre" Type="varchar" Mode="In" />
+          <Parameter Name="pa_apellido" Type="varchar" Mode="In" />
+          <Parameter Name="pa_edad" Type="char" Mode="In" />
+          <Parameter Name="pa_fecha_nacimiento" Type="date" Mode="In" />
+        </Function>
+        <Function Name="pa_insert_especie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+          <Parameter Name="pa_nombre" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_insert_factura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+          <Parameter Name="pa_fecha" Type="date" Mode="In" />
+          <Parameter Name="pa_id_m" Type="varchar" Mode="In" />
+          <Parameter Name="pa_codigo_pfl" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_insert_factura_producto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo_f" Type="varchar" Mode="In" />
+          <Parameter Name="pa_codigo_pd" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_insert_factura_servicio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo_f" Type="varchar" Mode="In" />
+          <Parameter Name="pa_codigo_s" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_insert_mascota" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_id" Type="varchar" Mode="In" />
+          <Parameter Name="pa_nombre" Type="varchar" Mode="In" />
+          <Parameter Name="pa_descripcion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="pa_edad" Type="char" Mode="In" />
+          <Parameter Name="pa_sexo" Type="char" Mode="In" />
+          <Parameter Name="pa_fecha_nacimiento" Type="date" Mode="In" />
+          <Parameter Name="pa_codigo_e" Type="varchar" Mode="In" />
+          <Parameter Name="pa_id_c" Type="varchar" Mode="In" />
+          <Parameter Name="pa_codigo_r" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_insert_productos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+          <Parameter Name="pa_nombre" Type="varchar" Mode="In" />
+          <Parameter Name="pa_precio" Type="float" Mode="In" />
+          <Parameter Name="pa_codigo_tp" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_insert_profesional" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+          <Parameter Name="pa_nombre" Type="varchar" Mode="In" />
+          <Parameter Name="pa_apellido" Type="varchar" Mode="In" />
+          <Parameter Name="pa_telefono" Type="varchar" Mode="In" />
+          <Parameter Name="pa_celular" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_insert_raza" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+          <Parameter Name="pa_nombre" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_insert_servicio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+          <Parameter Name="pa_nombre" Type="varchar" Mode="In" />
+          <Parameter Name="pa_descripcion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="pa_precio" Type="float" Mode="In" />
+        </Function>
+        <Function Name="pa_insert_tipo_producto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+          <Parameter Name="pa_nombre" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_select_cliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pa_select_especie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pa_select_factura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pa_select_factura_producto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pa_select_factura_servicio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pa_select_mascota" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pa_select_productos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pa_select_profesional" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pa_select_raza" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pa_select_servicio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pa_select_tipo_producto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pa_update_cliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_id" Type="varchar" Mode="In" />
+          <Parameter Name="pa_nombre" Type="varchar" Mode="In" />
+          <Parameter Name="pa_apellido" Type="varchar" Mode="In" />
+          <Parameter Name="pa_edad" Type="char" Mode="In" />
+          <Parameter Name="pa_fecha_nacimiento" Type="date" Mode="In" />
+        </Function>
+        <Function Name="pa_update_especie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+          <Parameter Name="pa_nombre" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_update_factura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+          <Parameter Name="pa_fecha" Type="date" Mode="In" />
+          <Parameter Name="pa_id_m" Type="varchar" Mode="In" />
+          <Parameter Name="pa_codigo_pfl" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_update_factura_producto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo_f" Type="varchar" Mode="In" />
+          <Parameter Name="pa_codigo_pd" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_update_factura_servicio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo_f" Type="varchar" Mode="In" />
+          <Parameter Name="pa_codigo_s" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_update_mascota" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_id" Type="varchar" Mode="In" />
+          <Parameter Name="pa_nombre" Type="varchar" Mode="In" />
+          <Parameter Name="pa_descripcion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="pa_edad" Type="char" Mode="In" />
+          <Parameter Name="pa_sexo" Type="char" Mode="In" />
+          <Parameter Name="pa_fecha_nacimiento" Type="date" Mode="In" />
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+          <Parameter Name="pa_id_c" Type="varchar" Mode="In" />
+          <Parameter Name="pa_codigo_r" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_update_productos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+          <Parameter Name="pa_nombre" Type="varchar" Mode="In" />
+          <Parameter Name="pa_precio" Type="float" Mode="In" />
+          <Parameter Name="pa_codigo_tp" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_update_profesional" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+          <Parameter Name="pa_nombre" Type="varchar" Mode="In" />
+          <Parameter Name="pa_apellido" Type="varchar" Mode="In" />
+          <Parameter Name="pa_telefono" Type="varchar" Mode="In" />
+          <Parameter Name="pa_celular" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_update_raza" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+          <Parameter Name="pa_nombre" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pa_update_servicio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+          <Parameter Name="pa_nombre" Type="varchar" Mode="In" />
+          <Parameter Name="pa_descripcion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="pa_precio" Type="float" Mode="In" />
+        </Function>
+        <Function Name="pa_update_tipo_producto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pa_codigo" Type="varchar" Mode="In" />
+          <Parameter Name="pa_nombre" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="db_veterinariaModelStoreContainer">
+          <EntitySet Name="tbl_cliente" EntityType="Self.tbl_cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_especie" EntityType="Self.tbl_especie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_factura" EntityType="Self.tbl_factura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_mascotas" EntityType="Self.tbl_mascotas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_productos" EntityType="Self.tbl_productos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_profesional" EntityType="Self.tbl_profesional" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_raza" EntityType="Self.tbl_raza" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_servicio" EntityType="Self.tbl_servicio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_tipo_producto" EntityType="Self.tbl_tipo_producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_factura_producto" EntityType="Self.tbl_factura_producto" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tbl_factura_producto].[codigo_f] AS [codigo_f], 
+    [tbl_factura_producto].[codigo_pd] AS [codigo_pd]
+    FROM [dbo].[tbl_factura_producto] AS [tbl_factura_producto]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="tbl_factura_servicio" EntityType="Self.tbl_factura_servicio" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tbl_factura_servicio].[codigo_f] AS [codigo_f], 
+    [tbl_factura_servicio].[codigo_s] AS [codigo_s]
+    FROM [dbo].[tbl_factura_servicio] AS [tbl_factura_servicio]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__tbl_factu__codig__00200768" Association="Self.FK__tbl_factu__codig__00200768">
+            <End Role="tbl_factura" EntitySet="tbl_factura" />
+            <End Role="tbl_factura_producto" EntitySet="tbl_factura_producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_factu__codig__01142BA1" Association="Self.FK__tbl_factu__codig__01142BA1">
+            <End Role="tbl_productos" EntitySet="tbl_productos" />
+            <End Role="tbl_factura_producto" EntitySet="tbl_factura_producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_factu__codig__02FC7413" Association="Self.FK__tbl_factu__codig__02FC7413">
+            <End Role="tbl_factura" EntitySet="tbl_factura" />
+            <End Role="tbl_factura_servicio" EntitySet="tbl_factura_servicio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_factu__codig__03F0984C" Association="Self.FK__tbl_factu__codig__03F0984C">
+            <End Role="tbl_servicio" EntitySet="tbl_servicio" />
+            <End Role="tbl_factura_servicio" EntitySet="tbl_factura_servicio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_factu__codig__7E37BEF6" Association="Self.FK__tbl_factu__codig__7E37BEF6">
+            <End Role="tbl_profesional" EntitySet="tbl_profesional" />
+            <End Role="tbl_factura" EntitySet="tbl_factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_factur__id_m__7D439ABD" Association="Self.FK__tbl_factur__id_m__7D439ABD">
+            <End Role="tbl_mascotas" EntitySet="tbl_mascotas" />
+            <End Role="tbl_factura" EntitySet="tbl_factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_masco__codig__3D5E1FD2" Association="Self.FK__tbl_masco__codig__3D5E1FD2">
+            <End Role="tbl_raza" EntitySet="tbl_raza" />
+            <End Role="tbl_mascotas" EntitySet="tbl_mascotas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_masco__codig__3E52440B" Association="Self.FK__tbl_masco__codig__3E52440B">
+            <End Role="tbl_especie" EntitySet="tbl_especie" />
+            <End Role="tbl_mascotas" EntitySet="tbl_mascotas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_mascot__id_c__3F466844" Association="Self.FK__tbl_mascot__id_c__3F466844">
+            <End Role="tbl_cliente" EntitySet="tbl_cliente" />
+            <End Role="tbl_mascotas" EntitySet="tbl_mascotas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_produ__codig__787EE5A0" Association="Self.FK__tbl_produ__codig__787EE5A0">
+            <End Role="tbl_tipo_producto" EntitySet="tbl_tipo_producto" />
+            <End Role="tbl_productos" EntitySet="tbl_productos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db_veterinariaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_cliente">
+          <Key>
+            <PropertyRef Name="id_c" />
+          </Key>
+          <Property Name="id_c" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_c" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido_c" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="edad_c" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="fecha_nacimiento_c" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="tbl_mascotas" Relationship="Self.FK__tbl_mascot__id_c__3F466844" FromRole="tbl_cliente" ToRole="tbl_mascotas" />
+        </EntityType>
+        <EntityType Name="tbl_especie">
+          <Key>
+            <PropertyRef Name="codigo_e" />
+          </Key>
+          <Property Name="codigo_e" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_e" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_mascotas" Relationship="Self.FK__tbl_masco__codig__3E52440B" FromRole="tbl_especie" ToRole="tbl_mascotas" />
+        </EntityType>
+        <EntityType Name="tbl_factura">
+          <Key>
+            <PropertyRef Name="codigo_f" />
+          </Key>
+          <Property Name="codigo_f" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_f" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="id_m" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codigo_pfl" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_profesional" Relationship="Self.FK__tbl_factu__codig__7E37BEF6" FromRole="tbl_factura" ToRole="tbl_profesional" />
+          <NavigationProperty Name="tbl_mascotas" Relationship="Self.FK__tbl_factur__id_m__7D439ABD" FromRole="tbl_factura" ToRole="tbl_mascotas" />
+          <NavigationProperty Name="tbl_productos" Relationship="Self.tbl_factura_producto" FromRole="tbl_factura" ToRole="tbl_productos" />
+          <NavigationProperty Name="tbl_servicio" Relationship="Self.tbl_factura_servicio" FromRole="tbl_factura" ToRole="tbl_servicio" />
+        </EntityType>
+        <EntityType Name="tbl_mascotas">
+          <Key>
+            <PropertyRef Name="id_m" />
+          </Key>
+          <Property Name="id_m" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_m" Type="String" MaxLength="24" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion_m" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="edad_m" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="sexo_m" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="fecha_nacimiento_m" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="codigo_e" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_c" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codigo_r" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_cliente" Relationship="Self.FK__tbl_mascot__id_c__3F466844" FromRole="tbl_mascotas" ToRole="tbl_cliente" />
+          <NavigationProperty Name="tbl_especie" Relationship="Self.FK__tbl_masco__codig__3E52440B" FromRole="tbl_mascotas" ToRole="tbl_especie" />
+          <NavigationProperty Name="tbl_factura" Relationship="Self.FK__tbl_factur__id_m__7D439ABD" FromRole="tbl_mascotas" ToRole="tbl_factura" />
+          <NavigationProperty Name="tbl_raza" Relationship="Self.FK__tbl_masco__codig__3D5E1FD2" FromRole="tbl_mascotas" ToRole="tbl_raza" />
+        </EntityType>
+        <EntityType Name="tbl_productos">
+          <Key>
+            <PropertyRef Name="codigo_pd" />
+          </Key>
+          <Property Name="codigo_pd" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_pd" Type="String" MaxLength="24" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="precio_pd" Type="Double" Nullable="false" />
+          <Property Name="codigo_tp" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_tipo_producto" Relationship="Self.FK__tbl_produ__codig__787EE5A0" FromRole="tbl_productos" ToRole="tbl_tipo_producto" />
+          <NavigationProperty Name="tbl_factura" Relationship="Self.tbl_factura_producto" FromRole="tbl_productos" ToRole="tbl_factura" />
+        </EntityType>
+        <EntityType Name="tbl_profesional">
+          <Key>
+            <PropertyRef Name="codigo_pfl" />
+          </Key>
+          <Property Name="codigo_pfl" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_pfl" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido_pfl" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono_pfl" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="celular_pfl" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_factura" Relationship="Self.FK__tbl_factu__codig__7E37BEF6" FromRole="tbl_profesional" ToRole="tbl_factura" />
+        </EntityType>
+        <EntityType Name="tbl_raza">
+          <Key>
+            <PropertyRef Name="codigo_r" />
+          </Key>
+          <Property Name="codigo_r" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_r" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_mascotas" Relationship="Self.FK__tbl_masco__codig__3D5E1FD2" FromRole="tbl_raza" ToRole="tbl_mascotas" />
+        </EntityType>
+        <EntityType Name="tbl_servicio">
+          <Key>
+            <PropertyRef Name="codigo_s" />
+          </Key>
+          <Property Name="codigo_s" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_s" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion_s" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="precio_s" Type="Double" Nullable="false" />
+          <NavigationProperty Name="tbl_factura" Relationship="Self.tbl_factura_servicio" FromRole="tbl_servicio" ToRole="tbl_factura" />
+        </EntityType>
+        <EntityType Name="tbl_tipo_producto">
+          <Key>
+            <PropertyRef Name="codigo_tp" />
+          </Key>
+          <Property Name="codigo_tp" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_tp" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_productos" Relationship="Self.FK__tbl_produ__codig__787EE5A0" FromRole="tbl_tipo_producto" ToRole="tbl_productos" />
+        </EntityType>
+        <Association Name="FK__tbl_mascot__id_c__3F466844">
+          <End Role="tbl_cliente" Type="Self.tbl_cliente" Multiplicity="1" />
+          <End Role="tbl_mascotas" Type="Self.tbl_mascotas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_cliente">
+              <PropertyRef Name="id_c" />
+            </Principal>
+            <Dependent Role="tbl_mascotas">
+              <PropertyRef Name="id_c" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_masco__codig__3E52440B">
+          <End Role="tbl_especie" Type="Self.tbl_especie" Multiplicity="1" />
+          <End Role="tbl_mascotas" Type="Self.tbl_mascotas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_especie">
+              <PropertyRef Name="codigo_e" />
+            </Principal>
+            <Dependent Role="tbl_mascotas">
+              <PropertyRef Name="codigo_e" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_factu__codig__7E37BEF6">
+          <End Role="tbl_profesional" Type="Self.tbl_profesional" Multiplicity="1" />
+          <End Role="tbl_factura" Type="Self.tbl_factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_profesional">
+              <PropertyRef Name="codigo_pfl" />
+            </Principal>
+            <Dependent Role="tbl_factura">
+              <PropertyRef Name="codigo_pfl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_factur__id_m__7D439ABD">
+          <End Role="tbl_mascotas" Type="Self.tbl_mascotas" Multiplicity="1" />
+          <End Role="tbl_factura" Type="Self.tbl_factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_mascotas">
+              <PropertyRef Name="id_m" />
+            </Principal>
+            <Dependent Role="tbl_factura">
+              <PropertyRef Name="id_m" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_masco__codig__3D5E1FD2">
+          <End Role="tbl_raza" Type="Self.tbl_raza" Multiplicity="1" />
+          <End Role="tbl_mascotas" Type="Self.tbl_mascotas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_raza">
+              <PropertyRef Name="codigo_r" />
+            </Principal>
+            <Dependent Role="tbl_mascotas">
+              <PropertyRef Name="codigo_r" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_produ__codig__787EE5A0">
+          <End Role="tbl_tipo_producto" Type="Self.tbl_tipo_producto" Multiplicity="1" />
+          <End Role="tbl_productos" Type="Self.tbl_productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_tipo_producto">
+              <PropertyRef Name="codigo_tp" />
+            </Principal>
+            <Dependent Role="tbl_productos">
+              <PropertyRef Name="codigo_tp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tbl_factura_producto">
+          <End Role="tbl_factura" Type="Self.tbl_factura" Multiplicity="*" />
+          <End Role="tbl_productos" Type="Self.tbl_productos" Multiplicity="*" />
+        </Association>
+        <Association Name="tbl_factura_servicio">
+          <End Role="tbl_factura" Type="Self.tbl_factura" Multiplicity="*" />
+          <End Role="tbl_servicio" Type="Self.tbl_servicio" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="db_veterinariaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_cliente" EntityType="Self.tbl_cliente" />
+          <EntitySet Name="tbl_especie" EntityType="Self.tbl_especie" />
+          <EntitySet Name="tbl_factura" EntityType="Self.tbl_factura" />
+          <EntitySet Name="tbl_mascotas" EntityType="Self.tbl_mascotas" />
+          <EntitySet Name="tbl_productos" EntityType="Self.tbl_productos" />
+          <EntitySet Name="tbl_profesional" EntityType="Self.tbl_profesional" />
+          <EntitySet Name="tbl_raza" EntityType="Self.tbl_raza" />
+          <EntitySet Name="tbl_servicio" EntityType="Self.tbl_servicio" />
+          <EntitySet Name="tbl_tipo_producto" EntityType="Self.tbl_tipo_producto" />
+          <AssociationSet Name="FK__tbl_mascot__id_c__3F466844" Association="Self.FK__tbl_mascot__id_c__3F466844">
+            <End Role="tbl_cliente" EntitySet="tbl_cliente" />
+            <End Role="tbl_mascotas" EntitySet="tbl_mascotas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_masco__codig__3E52440B" Association="Self.FK__tbl_masco__codig__3E52440B">
+            <End Role="tbl_especie" EntitySet="tbl_especie" />
+            <End Role="tbl_mascotas" EntitySet="tbl_mascotas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_factu__codig__7E37BEF6" Association="Self.FK__tbl_factu__codig__7E37BEF6">
+            <End Role="tbl_profesional" EntitySet="tbl_profesional" />
+            <End Role="tbl_factura" EntitySet="tbl_factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_factur__id_m__7D439ABD" Association="Self.FK__tbl_factur__id_m__7D439ABD">
+            <End Role="tbl_mascotas" EntitySet="tbl_mascotas" />
+            <End Role="tbl_factura" EntitySet="tbl_factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_masco__codig__3D5E1FD2" Association="Self.FK__tbl_masco__codig__3D5E1FD2">
+            <End Role="tbl_raza" EntitySet="tbl_raza" />
+            <End Role="tbl_mascotas" EntitySet="tbl_mascotas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_produ__codig__787EE5A0" Association="Self.FK__tbl_produ__codig__787EE5A0">
+            <End Role="tbl_tipo_producto" EntitySet="tbl_tipo_producto" />
+            <End Role="tbl_productos" EntitySet="tbl_productos" />
+          </AssociationSet>
+          <AssociationSet Name="tbl_factura_producto" Association="Self.tbl_factura_producto">
+            <End Role="tbl_factura" EntitySet="tbl_factura" />
+            <End Role="tbl_productos" EntitySet="tbl_productos" />
+          </AssociationSet>
+          <AssociationSet Name="tbl_factura_servicio" Association="Self.tbl_factura_servicio">
+            <End Role="tbl_factura" EntitySet="tbl_factura" />
+            <End Role="tbl_servicio" EntitySet="tbl_servicio" />
+          </AssociationSet>
+          <FunctionImport Name="pa_delete_cliente">
+            <Parameter Name="pa_id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_delete_especie">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_delete_factura">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_delete_factura_producto">
+            <Parameter Name="pa_codigo_f" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_delete_factura_servicio">
+            <Parameter Name="pa_codigo_f" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_delete_mascota">
+            <Parameter Name="pa_id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_delete_productos">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_delete_profesional">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_delete_raza">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_delete_servicio">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_delete_tipo_producto">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_insert_cliente">
+            <Parameter Name="pa_id" Mode="In" Type="String" />
+            <Parameter Name="pa_nombre" Mode="In" Type="String" />
+            <Parameter Name="pa_apellido" Mode="In" Type="String" />
+            <Parameter Name="pa_edad" Mode="In" Type="String" />
+            <Parameter Name="pa_fecha_nacimiento" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="pa_insert_especie">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+            <Parameter Name="pa_nombre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_insert_factura">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+            <Parameter Name="pa_fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="pa_id_m" Mode="In" Type="String" />
+            <Parameter Name="pa_codigo_pfl" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_insert_factura_producto">
+            <Parameter Name="pa_codigo_f" Mode="In" Type="String" />
+            <Parameter Name="pa_codigo_pd" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_insert_factura_servicio">
+            <Parameter Name="pa_codigo_f" Mode="In" Type="String" />
+            <Parameter Name="pa_codigo_s" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_insert_mascota">
+            <Parameter Name="pa_id" Mode="In" Type="String" />
+            <Parameter Name="pa_nombre" Mode="In" Type="String" />
+            <Parameter Name="pa_descripcion" Mode="In" Type="String" />
+            <Parameter Name="pa_edad" Mode="In" Type="String" />
+            <Parameter Name="pa_sexo" Mode="In" Type="String" />
+            <Parameter Name="pa_fecha_nacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="pa_codigo_e" Mode="In" Type="String" />
+            <Parameter Name="pa_id_c" Mode="In" Type="String" />
+            <Parameter Name="pa_codigo_r" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_insert_productos">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+            <Parameter Name="pa_nombre" Mode="In" Type="String" />
+            <Parameter Name="pa_precio" Mode="In" Type="Double" />
+            <Parameter Name="pa_codigo_tp" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_insert_profesional">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+            <Parameter Name="pa_nombre" Mode="In" Type="String" />
+            <Parameter Name="pa_apellido" Mode="In" Type="String" />
+            <Parameter Name="pa_telefono" Mode="In" Type="String" />
+            <Parameter Name="pa_celular" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_insert_raza">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+            <Parameter Name="pa_nombre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_insert_servicio">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+            <Parameter Name="pa_nombre" Mode="In" Type="String" />
+            <Parameter Name="pa_descripcion" Mode="In" Type="String" />
+            <Parameter Name="pa_precio" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="pa_insert_tipo_producto">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+            <Parameter Name="pa_nombre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_select_cliente" ReturnType="Collection(db_veterinariaModel.pa_select_cliente_Result)" />
+          <FunctionImport Name="pa_select_especie" ReturnType="Collection(db_veterinariaModel.pa_select_especie_Result)" />
+          <FunctionImport Name="pa_select_factura" ReturnType="Collection(db_veterinariaModel.pa_select_factura_Result)" />
+          <FunctionImport Name="pa_select_factura_producto" ReturnType="Collection(db_veterinariaModel.pa_select_factura_producto_Result)" />
+          <FunctionImport Name="pa_select_factura_servicio" ReturnType="Collection(db_veterinariaModel.pa_select_factura_servicio_Result)" />
+          <FunctionImport Name="pa_select_mascota" ReturnType="Collection(db_veterinariaModel.pa_select_mascota_Result)" />
+          <FunctionImport Name="pa_select_productos" ReturnType="Collection(db_veterinariaModel.pa_select_productos_Result)" />
+          <FunctionImport Name="pa_select_profesional" ReturnType="Collection(db_veterinariaModel.pa_select_profesional_Result)" />
+          <FunctionImport Name="pa_select_raza" ReturnType="Collection(db_veterinariaModel.pa_select_raza_Result)" />
+          <FunctionImport Name="pa_select_servicio" ReturnType="Collection(db_veterinariaModel.pa_select_servicio_Result)" />
+          <FunctionImport Name="pa_select_tipo_producto" ReturnType="Collection(db_veterinariaModel.pa_select_tipo_producto_Result)" />
+          <FunctionImport Name="pa_update_cliente">
+            <Parameter Name="pa_id" Mode="In" Type="String" />
+            <Parameter Name="pa_nombre" Mode="In" Type="String" />
+            <Parameter Name="pa_apellido" Mode="In" Type="String" />
+            <Parameter Name="pa_edad" Mode="In" Type="String" />
+            <Parameter Name="pa_fecha_nacimiento" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="pa_update_especie">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+            <Parameter Name="pa_nombre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_update_factura">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+            <Parameter Name="pa_fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="pa_id_m" Mode="In" Type="String" />
+            <Parameter Name="pa_codigo_pfl" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_update_factura_producto">
+            <Parameter Name="pa_codigo_f" Mode="In" Type="String" />
+            <Parameter Name="pa_codigo_pd" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_update_factura_servicio">
+            <Parameter Name="pa_codigo_f" Mode="In" Type="String" />
+            <Parameter Name="pa_codigo_s" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_update_mascota">
+            <Parameter Name="pa_id" Mode="In" Type="String" />
+            <Parameter Name="pa_nombre" Mode="In" Type="String" />
+            <Parameter Name="pa_descripcion" Mode="In" Type="String" />
+            <Parameter Name="pa_edad" Mode="In" Type="String" />
+            <Parameter Name="pa_sexo" Mode="In" Type="String" />
+            <Parameter Name="pa_fecha_nacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+            <Parameter Name="pa_id_c" Mode="In" Type="String" />
+            <Parameter Name="pa_codigo_r" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_update_productos">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+            <Parameter Name="pa_nombre" Mode="In" Type="String" />
+            <Parameter Name="pa_precio" Mode="In" Type="Double" />
+            <Parameter Name="pa_codigo_tp" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_update_profesional">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+            <Parameter Name="pa_nombre" Mode="In" Type="String" />
+            <Parameter Name="pa_apellido" Mode="In" Type="String" />
+            <Parameter Name="pa_telefono" Mode="In" Type="String" />
+            <Parameter Name="pa_celular" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_update_raza">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+            <Parameter Name="pa_nombre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pa_update_servicio">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+            <Parameter Name="pa_nombre" Mode="In" Type="String" />
+            <Parameter Name="pa_descripcion" Mode="In" Type="String" />
+            <Parameter Name="pa_precio" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="pa_update_tipo_producto">
+            <Parameter Name="pa_codigo" Mode="In" Type="String" />
+            <Parameter Name="pa_nombre" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="pa_select_cliente_Result">
+          <Property Type="String" Name="id_c" Nullable="false" MaxLength="16" />
+          <Property Type="String" Name="nombre_c" Nullable="false" MaxLength="32" />
+          <Property Type="String" Name="apellido_c" Nullable="false" MaxLength="32" />
+          <Property Type="String" Name="edad_c" Nullable="false" MaxLength="3" />
+          <Property Type="DateTime" Name="fecha_nacimiento_c" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pa_select_especie_Result">
+          <Property Type="String" Name="codigo_e" Nullable="false" MaxLength="12" />
+          <Property Type="String" Name="nombre_e" Nullable="false" MaxLength="16" />
+        </ComplexType>
+        <ComplexType Name="pa_select_factura_Result">
+          <Property Type="String" Name="codigo_f" Nullable="false" MaxLength="16" />
+          <Property Type="DateTime" Name="fecha_f" Nullable="false" />
+          <Property Type="String" Name="id_m" Nullable="false" MaxLength="16" />
+          <Property Type="String" Name="codigo_pfl" Nullable="false" MaxLength="12" />
+        </ComplexType>
+        <ComplexType Name="pa_select_factura_producto_Result">
+          <Property Type="String" Name="codigo_f" Nullable="false" MaxLength="16" />
+          <Property Type="String" Name="codigo_pd" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="pa_select_factura_servicio_Result">
+          <Property Type="String" Name="codigo_f" Nullable="false" MaxLength="16" />
+          <Property Type="String" Name="codigo_s" Nullable="false" MaxLength="16" />
+        </ComplexType>
+        <ComplexType Name="pa_select_mascota_Result">
+          <Property Type="String" Name="id_m" Nullable="false" MaxLength="16" />
+          <Property Type="String" Name="nombre_m" Nullable="false" MaxLength="24" />
+          <Property Type="String" Name="descripcion_m" Nullable="true" />
+          <Property Type="String" Name="edad_m" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="sexo_m" Nullable="false" MaxLength="6" />
+          <Property Type="DateTime" Name="fecha_nacimiento_m" Nullable="false" />
+          <Property Type="String" Name="codigo_e" Nullable="false" MaxLength="12" />
+          <Property Type="String" Name="id_c" Nullable="false" MaxLength="16" />
+          <Property Type="String" Name="codigo_r" Nullable="false" MaxLength="12" />
+        </ComplexType>
+        <ComplexType Name="pa_select_productos_Result">
+          <Property Type="String" Name="codigo_pd" Nullable="false" MaxLength="8" />
+          <Property Type="String" Name="nombre_pd" Nullable="false" MaxLength="24" />
+          <Property Type="Double" Name="precio_pd" Nullable="false" />
+          <Property Type="String" Name="codigo_tp" Nullable="false" MaxLength="16" />
+        </ComplexType>
+        <ComplexType Name="pa_select_profesional_Result">
+          <Property Type="String" Name="codigo_pfl" Nullable="false" MaxLength="12" />
+          <Property Type="String" Name="nombre_pfl" Nullable="false" MaxLength="32" />
+          <Property Type="String" Name="apellido_pfl" Nullable="false" MaxLength="32" />
+          <Property Type="String" Name="telefono_pfl" Nullable="false" MaxLength="12" />
+          <Property Type="String" Name="celular_pfl" Nullable="true" MaxLength="16" />
+        </ComplexType>
+        <ComplexType Name="pa_select_raza_Result">
+          <Property Type="String" Name="codigo_r" Nullable="false" MaxLength="12" />
+          <Property Type="String" Name="nombre_r" Nullable="false" MaxLength="32" />
+        </ComplexType>
+        <ComplexType Name="pa_select_servicio_Result">
+          <Property Type="String" Name="codigo_s" Nullable="false" MaxLength="16" />
+          <Property Type="String" Name="nombre_s" Nullable="false" MaxLength="32" />
+          <Property Type="String" Name="descripcion_s" Nullable="true" />
+          <Property Type="Double" Name="precio_s" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pa_select_tipo_producto_Result">
+          <Property Type="String" Name="codigo_tp" Nullable="false" MaxLength="16" />
+          <Property Type="String" Name="nombre_tp" Nullable="false" MaxLength="32" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db_veterinariaModelStoreContainer" CdmEntityContainer="db_veterinariaEntities">
+          <EntitySetMapping Name="tbl_cliente">
+            <EntityTypeMapping TypeName="db_veterinariaModel.tbl_cliente">
+              <MappingFragment StoreEntitySet="tbl_cliente">
+                <ScalarProperty Name="id_c" ColumnName="id_c" />
+                <ScalarProperty Name="nombre_c" ColumnName="nombre_c" />
+                <ScalarProperty Name="apellido_c" ColumnName="apellido_c" />
+                <ScalarProperty Name="edad_c" ColumnName="edad_c" />
+                <ScalarProperty Name="fecha_nacimiento_c" ColumnName="fecha_nacimiento_c" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_especie">
+            <EntityTypeMapping TypeName="db_veterinariaModel.tbl_especie">
+              <MappingFragment StoreEntitySet="tbl_especie">
+                <ScalarProperty Name="codigo_e" ColumnName="codigo_e" />
+                <ScalarProperty Name="nombre_e" ColumnName="nombre_e" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_factura">
+            <EntityTypeMapping TypeName="db_veterinariaModel.tbl_factura">
+              <MappingFragment StoreEntitySet="tbl_factura">
+                <ScalarProperty Name="codigo_f" ColumnName="codigo_f" />
+                <ScalarProperty Name="fecha_f" ColumnName="fecha_f" />
+                <ScalarProperty Name="id_m" ColumnName="id_m" />
+                <ScalarProperty Name="codigo_pfl" ColumnName="codigo_pfl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_mascotas">
+            <EntityTypeMapping TypeName="db_veterinariaModel.tbl_mascotas">
+              <MappingFragment StoreEntitySet="tbl_mascotas">
+                <ScalarProperty Name="id_m" ColumnName="id_m" />
+                <ScalarProperty Name="nombre_m" ColumnName="nombre_m" />
+                <ScalarProperty Name="descripcion_m" ColumnName="descripcion_m" />
+                <ScalarProperty Name="edad_m" ColumnName="edad_m" />
+                <ScalarProperty Name="sexo_m" ColumnName="sexo_m" />
+                <ScalarProperty Name="fecha_nacimiento_m" ColumnName="fecha_nacimiento_m" />
+                <ScalarProperty Name="codigo_e" ColumnName="codigo_e" />
+                <ScalarProperty Name="id_c" ColumnName="id_c" />
+                <ScalarProperty Name="codigo_r" ColumnName="codigo_r" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_productos">
+            <EntityTypeMapping TypeName="db_veterinariaModel.tbl_productos">
+              <MappingFragment StoreEntitySet="tbl_productos">
+                <ScalarProperty Name="codigo_pd" ColumnName="codigo_pd" />
+                <ScalarProperty Name="nombre_pd" ColumnName="nombre_pd" />
+                <ScalarProperty Name="precio_pd" ColumnName="precio_pd" />
+                <ScalarProperty Name="codigo_tp" ColumnName="codigo_tp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_profesional">
+            <EntityTypeMapping TypeName="db_veterinariaModel.tbl_profesional">
+              <MappingFragment StoreEntitySet="tbl_profesional">
+                <ScalarProperty Name="codigo_pfl" ColumnName="codigo_pfl" />
+                <ScalarProperty Name="nombre_pfl" ColumnName="nombre_pfl" />
+                <ScalarProperty Name="apellido_pfl" ColumnName="apellido_pfl" />
+                <ScalarProperty Name="telefono_pfl" ColumnName="telefono_pfl" />
+                <ScalarProperty Name="celular_pfl" ColumnName="celular_pfl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_raza">
+            <EntityTypeMapping TypeName="db_veterinariaModel.tbl_raza">
+              <MappingFragment StoreEntitySet="tbl_raza">
+                <ScalarProperty Name="codigo_r" ColumnName="codigo_r" />
+                <ScalarProperty Name="nombre_r" ColumnName="nombre_r" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_servicio">
+            <EntityTypeMapping TypeName="db_veterinariaModel.tbl_servicio">
+              <MappingFragment StoreEntitySet="tbl_servicio">
+                <ScalarProperty Name="codigo_s" ColumnName="codigo_s" />
+                <ScalarProperty Name="nombre_s" ColumnName="nombre_s" />
+                <ScalarProperty Name="descripcion_s" ColumnName="descripcion_s" />
+                <ScalarProperty Name="precio_s" ColumnName="precio_s" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_tipo_producto">
+            <EntityTypeMapping TypeName="db_veterinariaModel.tbl_tipo_producto">
+              <MappingFragment StoreEntitySet="tbl_tipo_producto">
+                <ScalarProperty Name="codigo_tp" ColumnName="codigo_tp" />
+                <ScalarProperty Name="nombre_tp" ColumnName="nombre_tp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="tbl_factura_producto" TypeName="db_veterinariaModel.tbl_factura_producto" StoreEntitySet="tbl_factura_producto">
+            <EndProperty Name="tbl_factura">
+              <ScalarProperty Name="codigo_f" ColumnName="codigo_f" />
+            </EndProperty>
+            <EndProperty Name="tbl_productos">
+              <ScalarProperty Name="codigo_pd" ColumnName="codigo_pd" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="tbl_factura_servicio" TypeName="db_veterinariaModel.tbl_factura_servicio" StoreEntitySet="tbl_factura_servicio">
+            <EndProperty Name="tbl_factura">
+              <ScalarProperty Name="codigo_f" ColumnName="codigo_f" />
+            </EndProperty>
+            <EndProperty Name="tbl_servicio">
+              <ScalarProperty Name="codigo_s" ColumnName="codigo_s" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="pa_delete_cliente" FunctionName="db_veterinariaModel.Store.pa_delete_cliente" />
+          <FunctionImportMapping FunctionImportName="pa_delete_especie" FunctionName="db_veterinariaModel.Store.pa_delete_especie" />
+          <FunctionImportMapping FunctionImportName="pa_delete_factura" FunctionName="db_veterinariaModel.Store.pa_delete_factura" />
+          <FunctionImportMapping FunctionImportName="pa_delete_factura_producto" FunctionName="db_veterinariaModel.Store.pa_delete_factura_producto" />
+          <FunctionImportMapping FunctionImportName="pa_delete_factura_servicio" FunctionName="db_veterinariaModel.Store.pa_delete_factura_servicio" />
+          <FunctionImportMapping FunctionImportName="pa_delete_mascota" FunctionName="db_veterinariaModel.Store.pa_delete_mascota" />
+          <FunctionImportMapping FunctionImportName="pa_delete_productos" FunctionName="db_veterinariaModel.Store.pa_delete_productos" />
+          <FunctionImportMapping FunctionImportName="pa_delete_profesional" FunctionName="db_veterinariaModel.Store.pa_delete_profesional" />
+          <FunctionImportMapping FunctionImportName="pa_delete_raza" FunctionName="db_veterinariaModel.Store.pa_delete_raza" />
+          <FunctionImportMapping FunctionImportName="pa_delete_servicio" FunctionName="db_veterinariaModel.Store.pa_delete_servicio" />
+          <FunctionImportMapping FunctionImportName="pa_delete_tipo_producto" FunctionName="db_veterinariaModel.Store.pa_delete_tipo_producto" />
+          <FunctionImportMapping FunctionImportName="pa_insert_cliente" FunctionName="db_veterinariaModel.Store.pa_insert_cliente" />
+          <FunctionImportMapping FunctionImportName="pa_insert_especie" FunctionName="db_veterinariaModel.Store.pa_insert_especie" />
+          <FunctionImportMapping FunctionImportName="pa_insert_factura" FunctionName="db_veterinariaModel.Store.pa_insert_factura" />
+          <FunctionImportMapping FunctionImportName="pa_insert_factura_producto" FunctionName="db_veterinariaModel.Store.pa_insert_factura_producto" />
+          <FunctionImportMapping FunctionImportName="pa_insert_factura_servicio" FunctionName="db_veterinariaModel.Store.pa_insert_factura_servicio" />
+          <FunctionImportMapping FunctionImportName="pa_insert_mascota" FunctionName="db_veterinariaModel.Store.pa_insert_mascota" />
+          <FunctionImportMapping FunctionImportName="pa_insert_productos" FunctionName="db_veterinariaModel.Store.pa_insert_productos" />
+          <FunctionImportMapping FunctionImportName="pa_insert_profesional" FunctionName="db_veterinariaModel.Store.pa_insert_profesional" />
+          <FunctionImportMapping FunctionImportName="pa_insert_raza" FunctionName="db_veterinariaModel.Store.pa_insert_raza" />
+          <FunctionImportMapping FunctionImportName="pa_insert_servicio" FunctionName="db_veterinariaModel.Store.pa_insert_servicio" />
+          <FunctionImportMapping FunctionImportName="pa_insert_tipo_producto" FunctionName="db_veterinariaModel.Store.pa_insert_tipo_producto" />
+          <FunctionImportMapping FunctionImportName="pa_select_cliente" FunctionName="db_veterinariaModel.Store.pa_select_cliente">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="db_veterinariaModel.pa_select_cliente_Result">
+                <ScalarProperty Name="id_c" ColumnName="id_c" />
+                <ScalarProperty Name="nombre_c" ColumnName="nombre_c" />
+                <ScalarProperty Name="apellido_c" ColumnName="apellido_c" />
+                <ScalarProperty Name="edad_c" ColumnName="edad_c" />
+                <ScalarProperty Name="fecha_nacimiento_c" ColumnName="fecha_nacimiento_c" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pa_select_especie" FunctionName="db_veterinariaModel.Store.pa_select_especie">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="db_veterinariaModel.pa_select_especie_Result">
+                <ScalarProperty Name="codigo_e" ColumnName="codigo_e" />
+                <ScalarProperty Name="nombre_e" ColumnName="nombre_e" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pa_select_factura" FunctionName="db_veterinariaModel.Store.pa_select_factura">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="db_veterinariaModel.pa_select_factura_Result">
+                <ScalarProperty Name="codigo_f" ColumnName="codigo_f" />
+                <ScalarProperty Name="fecha_f" ColumnName="fecha_f" />
+                <ScalarProperty Name="id_m" ColumnName="id_m" />
+                <ScalarProperty Name="codigo_pfl" ColumnName="codigo_pfl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pa_select_factura_producto" FunctionName="db_veterinariaModel.Store.pa_select_factura_producto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="db_veterinariaModel.pa_select_factura_producto_Result">
+                <ScalarProperty Name="codigo_f" ColumnName="codigo_f" />
+                <ScalarProperty Name="codigo_pd" ColumnName="codigo_pd" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pa_select_factura_servicio" FunctionName="db_veterinariaModel.Store.pa_select_factura_servicio">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="db_veterinariaModel.pa_select_factura_servicio_Result">
+                <ScalarProperty Name="codigo_f" ColumnName="codigo_f" />
+                <ScalarProperty Name="codigo_s" ColumnName="codigo_s" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pa_select_mascota" FunctionName="db_veterinariaModel.Store.pa_select_mascota">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="db_veterinariaModel.pa_select_mascota_Result">
+                <ScalarProperty Name="id_m" ColumnName="id_m" />
+                <ScalarProperty Name="nombre_m" ColumnName="nombre_m" />
+                <ScalarProperty Name="descripcion_m" ColumnName="descripcion_m" />
+                <ScalarProperty Name="edad_m" ColumnName="edad_m" />
+                <ScalarProperty Name="sexo_m" ColumnName="sexo_m" />
+                <ScalarProperty Name="fecha_nacimiento_m" ColumnName="fecha_nacimiento_m" />
+                <ScalarProperty Name="codigo_e" ColumnName="codigo_e" />
+                <ScalarProperty Name="id_c" ColumnName="id_c" />
+                <ScalarProperty Name="codigo_r" ColumnName="codigo_r" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pa_select_productos" FunctionName="db_veterinariaModel.Store.pa_select_productos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="db_veterinariaModel.pa_select_productos_Result">
+                <ScalarProperty Name="codigo_pd" ColumnName="codigo_pd" />
+                <ScalarProperty Name="nombre_pd" ColumnName="nombre_pd" />
+                <ScalarProperty Name="precio_pd" ColumnName="precio_pd" />
+                <ScalarProperty Name="codigo_tp" ColumnName="codigo_tp" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pa_select_profesional" FunctionName="db_veterinariaModel.Store.pa_select_profesional">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="db_veterinariaModel.pa_select_profesional_Result">
+                <ScalarProperty Name="codigo_pfl" ColumnName="codigo_pfl" />
+                <ScalarProperty Name="nombre_pfl" ColumnName="nombre_pfl" />
+                <ScalarProperty Name="apellido_pfl" ColumnName="apellido_pfl" />
+                <ScalarProperty Name="telefono_pfl" ColumnName="telefono_pfl" />
+                <ScalarProperty Name="celular_pfl" ColumnName="celular_pfl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pa_select_raza" FunctionName="db_veterinariaModel.Store.pa_select_raza">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="db_veterinariaModel.pa_select_raza_Result">
+                <ScalarProperty Name="codigo_r" ColumnName="codigo_r" />
+                <ScalarProperty Name="nombre_r" ColumnName="nombre_r" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pa_select_servicio" FunctionName="db_veterinariaModel.Store.pa_select_servicio">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="db_veterinariaModel.pa_select_servicio_Result">
+                <ScalarProperty Name="codigo_s" ColumnName="codigo_s" />
+                <ScalarProperty Name="nombre_s" ColumnName="nombre_s" />
+                <ScalarProperty Name="descripcion_s" ColumnName="descripcion_s" />
+                <ScalarProperty Name="precio_s" ColumnName="precio_s" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pa_select_tipo_producto" FunctionName="db_veterinariaModel.Store.pa_select_tipo_producto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="db_veterinariaModel.pa_select_tipo_producto_Result">
+                <ScalarProperty Name="codigo_tp" ColumnName="codigo_tp" />
+                <ScalarProperty Name="nombre_tp" ColumnName="nombre_tp" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pa_update_cliente" FunctionName="db_veterinariaModel.Store.pa_update_cliente" />
+          <FunctionImportMapping FunctionImportName="pa_update_especie" FunctionName="db_veterinariaModel.Store.pa_update_especie" />
+          <FunctionImportMapping FunctionImportName="pa_update_factura" FunctionName="db_veterinariaModel.Store.pa_update_factura" />
+          <FunctionImportMapping FunctionImportName="pa_update_factura_producto" FunctionName="db_veterinariaModel.Store.pa_update_factura_producto" />
+          <FunctionImportMapping FunctionImportName="pa_update_factura_servicio" FunctionName="db_veterinariaModel.Store.pa_update_factura_servicio" />
+          <FunctionImportMapping FunctionImportName="pa_update_mascota" FunctionName="db_veterinariaModel.Store.pa_update_mascota" />
+          <FunctionImportMapping FunctionImportName="pa_update_productos" FunctionName="db_veterinariaModel.Store.pa_update_productos" />
+          <FunctionImportMapping FunctionImportName="pa_update_profesional" FunctionName="db_veterinariaModel.Store.pa_update_profesional" />
+          <FunctionImportMapping FunctionImportName="pa_update_raza" FunctionName="db_veterinariaModel.Store.pa_update_raza" />
+          <FunctionImportMapping FunctionImportName="pa_update_servicio" FunctionName="db_veterinariaModel.Store.pa_update_servicio" />
+          <FunctionImportMapping FunctionImportName="pa_update_tipo_producto" FunctionName="db_veterinariaModel.Store.pa_update_tipo_producto" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

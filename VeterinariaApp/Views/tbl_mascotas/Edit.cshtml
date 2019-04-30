@@ -1,0 +1,95 @@
+﻿@model VeterinariaApp.Models.tbl_mascotas
+
+@{
+    /**/
+    /**/
+    ViewBag.Title = "Mascotas";
+}
+
+<div class="row">
+    <div class="col-7">
+        <h2 class="border-left border-bottom border-info rounded-left">Mascotas <span class="text-muted" style="font-size: 16px">Nuestros pequeños amigos.</span></h2>
+        <span class="badge badge-info">Actualizando</span>
+    </div>
+</div>
+<hr />
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card border-dark rounded mb-5">
+        <div class="card-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id_m)
+            <div class="form-row">
+
+                <div class="form-group col-sm-12 col-md-8">
+                    @Html.LabelFor(model => model.nombre_m, "Nombre", htmlAttributes: new { @class = "text-muted" })
+                    @Html.EditorFor(model => model.nombre_m, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.nombre_m, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.descripcion_m, "Descripción", htmlAttributes: new { @class = "text-muted" })
+                @Html.TextAreaFor(model => model.descripcion_m, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.descripcion_m, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-sm-12 col-md-4">
+                    @Html.LabelFor(model => model.edad_m, "Edad", htmlAttributes: new { @class = "text-muted" })
+                    @Html.EditorFor(model => model.edad_m, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.edad_m, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group col-sm-12 col-md-4">
+                    @Html.LabelFor(model => model.sexo_m, "Sexo", htmlAttributes: new { @class = "text-muted" })
+                    @Html.DropDownListFor(model => model.sexo_m, new List<SelectListItem> { new SelectListItem { Text = "Macho", Value = "Macho" }, new SelectListItem { Text = "Hembra", Value = "Hembra" } }, "Seleccione un género", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.sexo_m, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group col-sm-12 col-md-4">
+                    @Html.LabelFor(model => model.fecha_nacimiento_m, "Fecha de nacimiento", htmlAttributes: new { @class = "text-muted" })
+                    @Html.EditorFor(model => model.fecha_nacimiento_m, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    @Html.ValidationMessageFor(model => model.fecha_nacimiento_m, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-sm-12 col-md-4">
+                    @Html.LabelFor(model => model.codigo_e, "Especie", htmlAttributes: new { @class = "text-muted" })
+                    @Html.DropDownList("codigo_e", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.codigo_e, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group col-sm-12 col-md-4">
+                    @Html.LabelFor(model => model.id_c, "Dueño", htmlAttributes: new { @class = "text-muted" })
+                    @Html.DropDownList("id_c", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.id_c, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group col-sm-12 col-md-4">
+                    @Html.LabelFor(model => model.codigo_r, "Raza", htmlAttributes: new { @class = "text-muted" })
+                    @Html.DropDownList("codigo_r", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.codigo_r, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.ActionLink(" Volver atrás", "Index", null, new { @class = "btn btn-outline-dark fas fa-arrow-left ml-0" })
+                    <button type="submit" class="btn btn-outline-success float-right"><i class="far fa-save"></i>   Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

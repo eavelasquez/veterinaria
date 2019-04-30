@@ -1,0 +1,47 @@
+﻿@model VeterinariaApp.Models.tbl_especie
+
+@{
+    ViewBag.Title = "Especies";
+}
+
+<div class="row">
+    <div class="col-7">
+        <h2 class="border-left border-bottom border-info rounded-left">Especies <span class="text-muted" style="font-size: 16px">Una enorme agrupación.</span></h2>
+    </div>
+
+    <div class="col-12">
+        <div class="alert alert-danger" role="alert">
+            ¿Está seguro que quiere eliminar esta especie? <i class="fas fa-exclamation-triangle ml-2"></i>
+        </div>
+    </div>
+</div>
+<hr />
+
+<div class="card shadow">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12 col-md-8">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="md-v-line"></div><i class="mr-4 font-weight-bold">Nombre</i>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="mr-4">@Html.DisplayFor(model => model.nombre_e)</i><div class="md-v-line"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.ActionLink(" Volver atrás", "Index", null, new { @class = "btn btn-outline-dark fas fa-arrow-left" })
+                <button type="submit" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i>   Eliminar</button>
+            </div>
+        </div>
+    }
+</div>

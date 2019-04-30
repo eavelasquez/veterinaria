@@ -1,0 +1,53 @@
+﻿@model VeterinariaApp.Models.tbl_mascotas
+
+@{
+    ViewBag.Title = "Mascotas";
+}
+
+<div class="row">
+    <div class="col-7">
+        <h2 class="border-left border-bottom border-info rounded-left">Mascotas <span class="text-muted" style="font-size: 16px">Nuestros pequeños amigos.</span></h2>
+    </div>
+
+    <div class="col-12">
+        <div class="alert alert-danger" role="alert">
+            ¿Está seguro que quiere eliminar esta mascota? <i class="fas fa-exclamation-triangle ml-2"></i>
+        </div>
+    </div>
+</div>
+<hr />
+
+<div>
+
+    <div class="card shadow mb-5">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12 col-md-8">
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><span class="font-weight-bold mr-lg-2">Nombre.</span>@Html.DisplayFor(model => model.nombre_m)</li>
+                        <li class="list-group-item"><span class="font-weight-bold mr-lg-2">Descripción.</span>@Html.DisplayFor(model => model.descripcion_m)</li>
+                        <li class="list-group-item"><span class="font-weight-bold mr-lg-2">Edad.</span>@Html.DisplayFor(model => model.edad_m)</li>
+                        <li class="list-group-item"><span class="font-weight-bold mr-lg-2">Sexo.</span>@Html.DisplayFor(model => model.sexo_m)</li>
+                        <li class="list-group-item"><span class="font-weight-bold mr-lg-2">Fecha de nacimiento.</span>@Html.DisplayFor(model => model.fecha_nacimiento_m)</li>
+                        <li class="list-group-item"><span class="font-weight-bold mr-lg-2">Dueño.</span>@Html.DisplayFor(model => model.tbl_cliente.nombre_c)</li>
+                        <li class="list-group-item"><span class="font-weight-bold mr-lg-2">Raza.</span>@Html.DisplayFor(model => model.tbl_raza.nombre_r)</li>
+                        <li class="list-group-item"><span class="font-weight-bold mr-lg-2">Especie.</span>@Html.DisplayFor(model => model.tbl_especie.nombre_e)</li>
+                    </ul>
+
+                </div>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group mt-3">
+                        <div class="col-md-12">
+                            @Html.ActionLink(" Volver atrás", "Index", null, new { @class = "btn btn-outline-dark fas fa-arrow-left" }) |
+                            <button type="submit" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i>   Eliminar</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

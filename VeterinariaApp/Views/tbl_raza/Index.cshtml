@@ -1,0 +1,56 @@
+﻿@model IEnumerable<VeterinariaApp.Models.tbl_raza>
+
+@{
+    ViewBag.Title = "Razas";
+}
+
+<div class="row">
+    <div class="col-7">
+        <h2 class="border-left border-bottom border-info rounded-left">Razas <span class="text-muted" style="font-size: 16px">Un pequeño grupo.</span></h2>
+    </div>
+</div>
+
+<div class="row my-lg-3">
+    <div class="col-sm-12">
+        <ul class="nav justify-content-start">
+            <li class="nav-item">
+                @Html.ActionLink("Registrar especie", "Create", "tbl_especie", null, new { @class = "nav-link list-group-item" })
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Registrar raza", "Create", null, new { @class = "nav-link list-group-item" })
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Registrar mascota", "Create", "tbl_mascotas", null, new { @class = "nav-link list-group-item" })
+            </li>
+            <li class="nav-item align-self-center ml-2" style="font-size: 2rem;">
+                <i class="far fa-hospital"></i>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<table class="table table-sm">
+    <caption>Lista de razas. <i class="fas fa-cat"></i></caption>
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Nombre</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre_r)
+                </td>
+                <td>
+                    @Html.ActionLink(" Actualizar", "Edit", new { id = item.codigo_r }, new { @class = "btn btn-outline-info btn-sm far fa-edit" }) |
+                    @Html.ActionLink("Ver", "Details", new { id = item.codigo_r }, new { @class = "btn btn-outline-dark btn-sm far fa-eye" }) |
+                    @Html.ActionLink(" Eliminar", "Delete", new { id = item.codigo_r }, new { @class = "btn btn-outline-danger btn-sm far fa-trash-alt" })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

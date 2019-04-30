@@ -1,0 +1,48 @@
+﻿@model VeterinariaApp.Models.tbl_especie
+
+@{
+    /**/
+
+    ViewBag.Title = "Especies";
+}
+
+<div class="row">
+    <div class="col-7">
+        <h2 class="border-left border-bottom border-info rounded-left">Especies <span class="text-muted" style="font-size: 16px">Una enorme agrupación.</span></h2>
+        <span class="badge badge-info">Actualizando</span>
+    </div>
+</div>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card border-dark rounded mb-5">
+        <div class="card-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.codigo_e)
+            <div class="form-row">
+
+                <div class="form-group col-sm-12 col-md-4">
+                    @Html.LabelFor(model => model.nombre_e, "Nombre", htmlAttributes: new { @class = "text-muted" })
+                    @Html.EditorFor(model => model.nombre_e, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.nombre_e, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.ActionLink(" Volver atrás", "Index", null, new { @class = "btn btn-outline-dark fas fa-arrow-left ml-0" })
+                    <button type="submit" class="btn btn-outline-success float-right"><i class="far fa-save"></i>   Actualizar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
