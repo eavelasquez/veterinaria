@@ -1,2 +1,2 @@
-# Veterinaria
-Una aplicación para una veterinaria que implementa un registro para mascotas con sus razas y especies, junto con un registro para su dueño y con profesionales a la disposición de la veterinaria.
+# veterinarian
+An application for a veterinarian that implements a registry for pets with their breeds and species, along with a registry for their owner and with professionals available to the veterinarian.
